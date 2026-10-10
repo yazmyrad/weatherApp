@@ -1,0 +1,1 @@
+The backend services for a full-stack weather application. It provides secure user management alongside real-time, 7-day historical, and predictive weather data reporting.
