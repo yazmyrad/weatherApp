@@ -1,8 +1,8 @@
 import httpx
-from pathlib import Path
-from src.core.config import settings
+from fastapi import Depends
+from src.core.config import Settings
 
-async def fetch_current(lat:float, long:float):
+async def fetch_current(lat:float, long:float, settings: Settings):
     params = {
         "lat": lat,
         "lon": long,
@@ -17,12 +17,12 @@ async def fetch_current(lat:float, long:float):
 
     return response.json()
 
-async def fetch_current_from_db():
+async def fetch_current_from_db(settings: Settings):
     pass
 
 async def fetch_history():
     pass
 
-async def fetch_forecast():
+async def fetch_forecast(settings: Settings):
     pass
 
