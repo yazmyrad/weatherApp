@@ -1,9 +1,10 @@
 import httpx
 from fastapi import Depends
+from pydantic import IPvAnyAddress
 from src.core import Settings, get_settings
 import asyncio
 
-async def fetch_geo_from_ip(settings: Settings):
+async def fetch_geo_from_ip(ip: IPvAnyAddress, settings: Settings):
     params = {
         "apiKey": settings.geo.api_key.get_secret_value(),
     }
