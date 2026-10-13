@@ -26,3 +26,5 @@ async def fetch_history():
 async def fetch_forecast(settings: Settings):
     pass
 
+''''lon1': 13.088333, 
+            'lat1': 52.338242, '''

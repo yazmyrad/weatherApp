@@ -1,26 +1,19 @@
 from fastapi import APIRouter
-from src.services.geodata import geo_data
-router = APIRouter()
+from src.services.geodata import fetch_geo_from_ip, fetch_geo_from_city_name
+
+router = APIRouter(prefix="geo", tags=["geo data"])
 
 '''
 Endpoint to get exact user location (lat & lon) from the city name. 
 Used if user refuses to give permission for geo data
 '''
-@router.get("geo/citytolocation")
-async def getLocation():
-    return await geo_data()
+@router.get("/citytolocation")
+async def get_location():
+    return await fetch_geo_from_city_name()
 
 '''
 Endpoint to post geo data - lan & lon and get city name
 '''
-@router.get("geo/locationtocity")
-async def getCityLocation():
-    return await geo_data()
-
-
-'''
-Endpoint to post location name
-'''
-@router.post("geo/city")
-async def postCity():
-    return await geo_data()
+@router.get("/locationtocity")
+async def get_city_location():
+    return await fetch_geo_from_ip()
