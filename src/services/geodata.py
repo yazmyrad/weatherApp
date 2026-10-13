@@ -1,12 +1,50 @@
-import requests
-import os
-from dotenv import load_dotenv
-from pathlib import Path
+import httpx
+from fastapi import Depends
+from src.core import Settings, get_settings
+import asyncio
 
-load_dotenv(Path("./.env"))
-def geo_data():
-    response = requests.get("https://api.geoapify.com/v1/ipinfo?&apiKey=%s" % (os.getenv("GEO_API_KEY")))
-    if response.status_code == 200:
-        r = response.json()
-        return [r['location'].get('latitude'), r['location'].get('longitude')]
-    return None 
+async def fetch_geo_from_ip(settings: Settings):
+    params = {
+        "apiKey": settings.geo.api_key.get_secret_value(),
+    }
+    async with httpx.AsyncClient(timeout=10) as client:
+        response = await client.get(f"{settings.geo.base_url}/ipinfo?", params=params)
+
+    if response.status_code != 200:
+        return Exception("Non run")
+    
+    data = response.json()
+    parsed_data = {
+        'city_name': data['city']['name'],
+        'country_name': data['country']['name'],
+        'city_flag': data['country']['flag'],
+        'latitude': data['location']['latitude'],
+        'longitude': data['location']['longitude'],
+        'ip': data['ip'],
+    }
+    return parsed_data
+
+async def fetch_geo_from_city_name(city:str, country:str, settings: Settings):
+    params = {
+        "city": city,
+        "state": country,
+        "format": "json",
+        "limit": 1,
+        "apiKey": settings.geo.api_key.get_secret_value(),
+    }
+    async with httpx.AsyncClient(timeout=10) as client:
+        response = await client.get(f"{settings.geo.base_url}/geocode/search?", params=params)
+
+    if response.status_code != 200:
+        return Exception("Non run")
+    
+    data = response.json()["results"][0]
+
+    parsed_data = {
+        'latitude': data['lat'],
+        'longitude': data['lon'],
+    }
+
+    return parsed_data
+
+#asyncio.run(fetch_geo_from_city_name("Berlin", "Germany", get_settings()))
