@@ -211,3 +211,9 @@ def test_read_secrets():
         }
     }
 '''
+
+"""
+current weather response data
+
+{'datetime': '17:00:00', 'datetimeEpoch': 1791903600, 'temp': 14.8, 'feelslike': 14.8, 'humidity': 55.39, 'dew': 5.7, 'precip': 0.0, 'precipprob': 0.0, 'snow': 0.0, 'snowdepth': 0.0, 'preciptype': None, 'windgust': 28.4, 'windspeed': 12.9, 'winddir': 176.0, 'pressure': 1022.0, 'visibility': 24.1, 'cloudcover': 92.0, 'solarradiation': 128.0, 'solarenergy': 0.5, 'uvindex': 1.0, 'severerisk': 0.0, 'conditions': 'Overcast', 'icon': 'cloudy', 'stations': None, 'source': 'fcst', 'sunrise': '07:29:10', 'sunriseEpoch': 1791869350, 'sunset': '18:17:51', 'sunsetEpoch': 1791908271, 'moonphase': 0.09}
+"""
