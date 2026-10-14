@@ -156,7 +156,7 @@ def test_read_secrets():
             'confidence_city_level': 0, 
             'match_type': 'full_match'
         }, 
-        'place_id': '513147ea984eca2a4059cb694fc939424a40f00101f901d6f3000000000000c002089203064265726c696e', 
+        'place_id': '513147ea984eca64265726c696e', 
         'bbox': {
             'lon1': 13.088345, 
             'lat1': 52.3382448, 
@@ -202,7 +202,7 @@ def test_read_secrets():
             'confidence_city_level': 0, 
             'match_type': 'full_match'
         }, 
-        'place_id': '51d7d9907f66d02a4059db4fc6f830434a40c002089203064265726c696ee2031e77686f736f6e66697273743a6c6f63616c6974793a313031393039373739', 
+        'place_id': '51d7d9907f66d9', 
         'bbox': {
             'lon1': 13.088333, 
             'lat1': 52.338242, 
@@ -215,5 +215,36 @@ def test_read_secrets():
 """
 current weather response data
 
-{'datetime': '17:00:00', 'datetimeEpoch': 1791903600, 'temp': 14.8, 'feelslike': 14.8, 'humidity': 55.39, 'dew': 5.7, 'precip': 0.0, 'precipprob': 0.0, 'snow': 0.0, 'snowdepth': 0.0, 'preciptype': None, 'windgust': 28.4, 'windspeed': 12.9, 'winddir': 176.0, 'pressure': 1022.0, 'visibility': 24.1, 'cloudcover': 92.0, 'solarradiation': 128.0, 'solarenergy': 0.5, 'uvindex': 1.0, 'severerisk': 0.0, 'conditions': 'Overcast', 'icon': 'cloudy', 'stations': None, 'source': 'fcst', 'sunrise': '07:29:10', 'sunriseEpoch': 1791869350, 'sunset': '18:17:51', 'sunsetEpoch': 1791908271, 'moonphase': 0.09}
+{
+'datetime': '17:00:00', 
+'datetimeEpoch': 1791903600, 
+'temp': 14.8, 
+'feelslike': 14.8, 
+'humidity': 55.39, 
+'dew': 5.7, 
+'precip': 0.0, 
+'precipprob': 0.0, 
+'snow': 0.0, 
+'snowdepth': 0.0, 
+'preciptype': None, 
+'windgust': 28.4, 
+'windspeed': 12.9, 
+'winddir': 176.0, 
+'pressure': 1022.0, 
+'visibility': 24.1, 
+'cloudcover': 92.0, 
+'solarradiation': 128.0, 
+'solarenergy': 0.5, 
+'uvindex': 1.0, 
+'severerisk': 0.0, 
+'conditions': 'Overcast', 
+'icon': 'cloudy', 
+'stations': None, 
+'source': 'fcst', 
+'sunrise': '07:29:10', 
+'sunriseEpoch': 1791869350, 
+'sunset': '18:17:51', 
+'sunsetEpoch': 1791908271, 
+'moonphase': 0.09
+}
 """
