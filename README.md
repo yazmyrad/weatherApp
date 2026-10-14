@@ -70,4 +70,8 @@ Underdevelopment FastAPI service that provides secure user management alongside 
 
     Pydantic-схемы для валидации запросов/ответов
 
+<<<<<<< HEAD
     Асинхронный HTTP-клиент (httpx) для вызовов внешнего API
+=======
+    Асинхронный HTTP-клиент (httpx) для вызовов внешнего API
+>>>>>>> d1191b4 (feat: add google auth)
