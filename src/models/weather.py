@@ -3,7 +3,6 @@ from datetime import date
 from sqlalchemy import ForeignKey, Date, DateTime, JSON
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from .base import Base
-from .user import User
 
 class Weather(Base):
     __tablename__ = "weather"

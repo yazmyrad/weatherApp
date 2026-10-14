@@ -6,7 +6,7 @@ from src.core.config import Settings, get_settings
 from src.services.geodata import fetch_geo_from_ip, fetch_geo_from_city_name
 
 
-router = APIRouter(prefix="geo", tags=["geo data"])
+router = APIRouter(prefix="/geo", tags=["geo data"])
 
 '''
 Endpoint to get exact user location (lat & lon) from the city name. 
