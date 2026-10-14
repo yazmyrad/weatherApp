@@ -7,8 +7,8 @@ class Geo(Base):
     __tablename__ = "geo"
 
     id: Mapped[int] = mapped_column(primary_key=True)
-    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), index=True)
+    user_id: Mapped[int] = mapped_column(ForeignKey("users.id"), unique=True, index=True)
     latitude: Mapped[float]
     longitude: Mapped[float]
-    city: Mapped[str] = mapped_column(String(30))
-    country: Mapped[str] = mapped_column(String(30))
+    city: Mapped[str] = mapped_column(String(100))
+    country: Mapped[str] = mapped_column(String(100))

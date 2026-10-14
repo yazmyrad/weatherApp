@@ -1,8 +1,6 @@
-#src/api/routes/weather.py
 from fastapi import APIRouter, Depends
 from typing import Annotated
 from src.core.config import Settings, get_settings
-
 from src.services import weather
 
 router = APIRouter(prefix="/weather", tags=["weather"])
