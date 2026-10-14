@@ -18,10 +18,8 @@ async def fetch_geo_from_ip(ip: IPvAnyAddress, settings: Settings):
     parsed_data = {
         'city_name': data['city']['name'],
         'country_name': data['country']['name'],
-        'city_flag': data['country']['flag'],
         'latitude': data['location']['latitude'],
         'longitude': data['location']['longitude'],
-        'ip': data['ip'],
     }
     return parsed_data
 
