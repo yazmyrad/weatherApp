@@ -1,12 +1,12 @@
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from src.models.geo import Geo
-from src.schemas.geo import GeoData
+from src.schemas.geo import GeoDataOut
 
 async def save_location(
         db: AsyncSession, 
         user_id: int, 
-        data: GeoData
+        data: GeoDataOut
     )->Geo:
     exists = await get_location(db, user_id)
     if exists:
