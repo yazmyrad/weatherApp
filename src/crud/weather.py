@@ -1,3 +1,5 @@
+from typing import List
+
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from src.models.weather import Weather
@@ -33,7 +35,7 @@ async def get_history(
         db: AsyncSession, 
         user_id:int, 
         since: datetime
-    )->list[Weather]:
+    )->List[Weather]:
     q = (
         select(Weather)
         .where(Weather.user_id == user_id, Weather.fetched_at >= since)
