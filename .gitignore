@@ -1,3 +1,4 @@
 climate/
 __pycache__/
 .env
+weather.db

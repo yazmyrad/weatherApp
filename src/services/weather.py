@@ -93,3 +93,13 @@ async def fetch_forecast(
         conditions=data["conditions"]
     )
     return result
+
+async def fetch_weather_tomorrow(
+        db: AsyncSession, 
+        user: User, 
+        settings: Settings
+    )->CurrentWeatherSchema:
+    location = await fetch_geo(db, user)
+    response = await fetch_forecast(location.latitude, location.longitude, settings)
+
+    return response

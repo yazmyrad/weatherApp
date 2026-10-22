@@ -7,6 +7,11 @@ from src.api.routes import main_router
 from starlette.middleware.sessions import SessionMiddleware
 
 from src.models import Base
+import logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s %(levelname)s %(name)s: %(message)s",
+)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):

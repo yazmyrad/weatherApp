@@ -4,7 +4,6 @@ from sqlalchemy import select
 
 async def get_or_create_by_google(
         db:  AsyncSession,
-        *,
         google_id: str,
         email: str, 
         name: str

@@ -42,5 +42,9 @@ async def weather_history(
 Endpoint to get weather conditions for tomorrow
 '''
 @router.get("/forecast", response_model=CurrentWeatherSchema)
-async def forecast(lat:float, lon: float, settings: Annotated[Settings, Depends(get_settings)]):
-    return await weather.fetch_forecast(lat=lat, lon=lon, settings=settings)
+async def forecast(
+    user: Annotated[User, Depends(get_current_user)],
+    db: Annotated[AsyncSession, Depends(get_db)],
+    settings: Annotated[Settings, Depends(get_settings)]
+):
+    return await weather.fetch_weather_tomorrow(db, user, settings=settings)

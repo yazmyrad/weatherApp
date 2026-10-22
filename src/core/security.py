@@ -20,9 +20,18 @@ def verify_token(token: str) -> dict | None:
             algorithms=[settings.jwt.crypto_algo],
         )
     except jwt.ExpiredSignatureError:
-        logger.info("Token expired")
+        logger.error("Token expired")
         return None
     except jwt.PyJWTError:
         logger.warning("Invalid token")
         return None
 
+def create_refresh_token(user_id: int) -> str:
+    expire = datetime.now(timezone.utc) + timedelta(days=1) 
+    payload = {
+        "sub": str(user_id), 
+        "exp": expire, 
+        "iat": datetime.now(timezone.utc), 
+        "type": "refresh"
+    }
+    return jwt.encode(payload, settings.jwt.secret_key.get_secret_value(), algorithm=settings.jwt.crypto_algo)
