@@ -5,7 +5,7 @@ from collections.abc import AsyncGenerator
 
 settings = get_settings()
 
-engine = create_async_engine(settings.database.url, echo=True)
+engine = create_async_engine(settings.database.url, echo=False)
 SessionLocal = async_sessionmaker(engine, expire_on_commit=False)
 
 async def get_db() -> AsyncGenerator[AsyncSession, None]:
