@@ -1,5 +1,5 @@
-Underdevelopment FastAPI service that provides secure user management alongside real-time, 7-day historical, and predictive weather data. Built with SQLAlchemy (async ORM), a clean CRUD layer, and asynchronous HTTP calls to an external weather provider with full data validation via Pydantic.
-✨ Features
+FastAPI service that provides secure user management alongside real-time, 7-day historical, and predictive weather data. Built with SQLAlchemy (async ORM), a clean CRUD layer, and asynchronous HTTP calls to an external weather provider with full data validation via Pydantic.
+
 
 🔐 Secure user management
 
@@ -36,8 +36,8 @@ Underdevelopment FastAPI service that provides secure user management alongside 
     Async HTTP client (httpx) for external API calls
 
 
-Находящийся в разработке сервис на FastAPI, который обеспечивает безопасное управление пользователями, а также данные о погоде в реальном времени, за 7 дней (исторические) и прогнозные данные. Построен на SQLAlchemy (асинхронный ORM), с чистым слоем CRUD и асинхронными HTTP-запросами к внешнему погодному провайдеру с полной валидацией данных через Pydantic.
-✨ Возможности
+FastAPI сервис, который обеспечивает безопасное управление пользователями, а также данные о погоде в реальном времени, за 7 дней (исторические) и прогнозные данные. Построен на SQLAlchemy (асинхронный ORM), с чистым слоем CRUD и асинхронными HTTP-запросами к внешнему погодному провайдеру с полной валидацией данных через Pydantic.
+
 🔐 Безопасное управление пользователями
 
     Регистрация и вход пользователей
