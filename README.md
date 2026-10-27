@@ -1,5 +1,7 @@
 FastAPI service that provides secure user management alongside real-time, 7-day historical, and predictive weather data. Built with SQLAlchemy (async ORM), a clean CRUD layer, and asynchronous HTTP calls to an external weather provider with full data validation via Pydantic.
 
+- The service automatically fetches weather data every 30 minutes by using scheduler(AsyncIOScheduler), processes data and saves it in data-base. Any time user can get fresh data from DB, not triggering external API in short time periods.  
+
 
 🔐 Secure user management
 
@@ -38,6 +40,8 @@ FastAPI service that provides secure user management alongside real-time, 7-day 
 
 FastAPI сервис, который обеспечивает безопасное управление пользователями, а также данные о погоде в реальном времени, за 7 дней (исторические) и прогнозные данные. Построен на SQLAlchemy (асинхронный ORM), с чистым слоем CRUD и асинхронными HTTP-запросами к внешнему погодному провайдеру с полной валидацией данных через Pydantic.
 
+— Сервис автоматически получает данные о погоде каждые 30 минут с помощью планировщика (AsyncIOScheduler), обрабатывает данные и сохраняет их в базе данных. Пользователь может в любое время получить актуальные данные из БД, не обращаясь к внешним API в короткие промежутки времени.
+
 🔐 Безопасное управление пользователями
 
     Регистрация и вход пользователей
@@ -70,8 +74,3 @@ FastAPI сервис, который обеспечивает безопасно
 
     Pydantic-схемы для валидации запросов/ответов
 
-<<<<<<< HEAD
-    Асинхронный HTTP-клиент (httpx) для вызовов внешнего API
-=======
-    Асинхронный HTTP-клиент (httpx) для вызовов внешнего API
->>>>>>> d1191b4 (feat: add google auth)
