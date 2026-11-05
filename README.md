@@ -1,76 +1,108 @@
-FastAPI service that provides secure user management alongside real-time, 7-day historical, and predictive weather data. Built with SQLAlchemy (async ORM), a clean CRUD layer, and asynchronous HTTP calls to an external weather provider with full data validation via Pydantic.
+# Weather API
 
-- The service automatically fetches weather data every 30 minutes by using scheduler(AsyncIOScheduler), processes data and saves it in data-base. Any time user can get fresh data from DB, not triggering external API in short time periods.  
+Async FastAPI service with JWT-protected user accounts and weather data
+(current, 7-day history, forecast) cached in a local database.
 
+🇷🇺 [Читать на русском](README.ru.md)
 
-🔐 Secure user management
+![Python](https://img.shields.io/badge/python-3.<x>-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-async-009688)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-    User registration and login
+![Swagger UI](docs/swagger.png)
 
-    Password hashing (bcrypt/argon2)
+## Features
 
-    JWT-based authentication & authorization
+- **Auth:** registration, login, <bcrypt|argon2> password hashing, JWT access tokens
+- **Per-user data isolation** on protected routes
+- **Weather data:** current conditions, 7-day history and forecast from <provider name>
+- **Background sync:** an `AsyncIOScheduler` job fetches fresh data every 30 minutes,
+  validates and stores it, so user requests are served from the DB instead of
+  hitting the external API each time
+- **Validated I/O:** Pydantic schemas for all requests and responses
 
-    Protected routes and per-user data isolation
+## Tech stack
 
-🌤️ Weather data
+Python · FastAPI · SQLAlchemy 2.0 (async) · SQLite · Pydantic · httpx · APScheduler · pytest
 
-    Real-time current conditions
+## Architecture
 
-    7-day historical weather
+```mermaid
+flowchart LR
+    Client -->|JWT| API[FastAPI routes]
+    API --> CRUD[CRUD layer]
+    CRUD --> DB[(SQLite)]
+    Scheduler[AsyncIOScheduler<br/>every 30 min] -->|httpx| Provider[Weather provider]
+    Scheduler --> CRUD
+```
 
-    Predictive (forecast) weather data
+- `src/`: application code (routes, schemas, CRUD, scheduler)
+- `tests/`: tests
+- `requirements/`: dependency files
 
-    Data fetched asynchronously from an external weather API
+The CRUD layer keeps database logic out of the endpoints, and the scheduler
+is the only component that calls the external weather API.
 
-    Response validation & normalization before persisting/serving
+## Quick start
 
-🧱 Architecture
+```bash
+git clone https://github.com/yazmyrad/weatherApp.git
+cd weatherApp
+python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install -r requirements/<base.txt>
+cp .env.example .env        # then fill in the values below
+uvicorn src.<module>:app --reload
+```
 
-    FastAPI for routing, DI, and OpenAPI docs
+Open http://localhost:8000/docs for the interactive API documentation.
 
-    SQLAlchemy 2.0 async ORM + AsyncSession
+### Configuration
 
-    Dedicated CRUD layer separating DB logic from endpoints
+| Variable | Description |
+|---|---|
+| `WEATHER_API_KEY` | API key for <provider name> |
+| `SECRET_KEY` | Secret used to sign JWT tokens |
+| `DATABASE_URL` | e.g. `sqlite+aiosqlite:///./weather.db` |
 
-    Pydantic schemas for request/response validation
+## Example usage
 
-    Async HTTP client (httpx) for external API calls
+```bash
+# register
+curl -X POST http://localhost:8000/<register-route> \
+  -H "Content-Type: application/json" \
+  -d '{"username": "alice", "password": "secret"}'
 
+# log in and get a token
+curl -X POST http://localhost:8000/<login-route> ...
 
-FastAPI сервис, который обеспечивает безопасное управление пользователями, а также данные о погоде в реальном времени, за 7 дней (исторические) и прогнозные данные. Построен на SQLAlchemy (асинхронный ORM), с чистым слоем CRUD и асинхронными HTTP-запросами к внешнему погодному провайдеру с полной валидацией данных через Pydantic.
+# get current weather (authorized)
+curl http://localhost:8000/<weather-route>?city=Berlin \
+  -H "Authorization: Bearer <token>"
+```
 
-— Сервис автоматически получает данные о погоде каждые 30 минут с помощью планировщика (AsyncIOScheduler), обрабатывает данные и сохраняет их в базе данных. Пользователь может в любое время получить актуальные данные из БД, не обращаясь к внешним API в короткие промежутки времени.
+```json
+{
+  "city": "Berlin",
+  "temperature": 7.4,
+  "description": "light rain",
+  "updated_at": "2026-11-05T14:30:00Z"
+}
+```
 
-🔐 Безопасное управление пользователями
+## Tests
 
-    Регистрация и вход пользователей
+```bash
+pip install -r requirements/<dev.txt>
+pytest
+```
 
-    Хеширование паролей (bcrypt/argon2)
+## Roadmap
 
-    Аутентификация и авторизация на основе JWT
+- [ ] Dockerfile + docker-compose
+- [ ] PostgreSQL instead of SQLite
+- [ ] CI with GitHub Actions
+- [ ] Rate limiting on auth routes
 
-    Защищённые маршруты и изоляция данных по пользователям
+## License
 
-🌤️ Данные о погоде
-
-    Текущие условия в реальном времени
-
-    Исторические данные о погоде за 7 дней
-
-    Прогнозные данные о погоде
-
-    Асинхронное получение данных из внешнего погодного API
-
-    Валидация и нормализация ответов перед сохранением/отдачей
-
-🧱 Архитектура
-
-    FastAPI для маршрутизации, внедрения зависимостей (DI) и документации OpenAPI
-
-    SQLAlchemy 2.0 async ORM + AsyncSession
-
-    Выделенный слой CRUD, отделяющий логику работы с БД от эндпоинтов
-
-    Pydantic-схемы для валидации запросов/ответов
-
+MIT
